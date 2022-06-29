@@ -26,7 +26,6 @@
   import { computed, defineComponent, onMounted } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container';
-  import { CropperAvatar } from '/@/components/Cropper';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -43,7 +42,6 @@
       Button,
       ARow: Row,
       ACol: Col,
-      CropperAvatar,
     },
     setup() {
       const { createMessage } = useMessage();
