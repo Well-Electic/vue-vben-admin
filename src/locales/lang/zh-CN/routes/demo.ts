@@ -63,8 +63,8 @@ export default {
     importExcel: '导入',
   },
   feat: {
-    feat: '功能',
-    icon: '图标',
+    feat: '首页',
+    icon: '首页',
     sessionTimeout: '登录过期',
     tabs: '标签页操作',
     tabDetail: '标签详情页',

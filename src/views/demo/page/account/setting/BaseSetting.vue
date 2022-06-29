@@ -18,11 +18,11 @@
         </div>
       </a-col>
     </a-row>
-    <Button type="primary" @click="handleSubmit"> 更新基本信息 </Button>
+    <AButton type="primary" @click="handleSubmit"> 更新基本信息 </AButton>
   </CollapseContainer>
 </template>
 <script lang="ts">
-  import { Button, Row, Col } from 'ant-design-vue';
+  import { Button as AButton, Row, Col } from 'ant-design-vue';
   import { computed, defineComponent, onMounted } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container';
@@ -39,7 +39,7 @@
     components: {
       BasicForm,
       CollapseContainer,
-      Button,
+      AButton,
       ARow: Row,
       ACol: Col,
     },
