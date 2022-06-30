@@ -10,6 +10,7 @@
   >
     <FormItem name="account" class="enter-x">
       <Input
+        ref="inputRef"
         size="large"
         v-model:value="formData.account"
         :placeholder="t('sys.login.userName')"
@@ -23,6 +24,23 @@
         v-model:value="formData.password"
         :placeholder="t('sys.login.password')"
       />
+    </FormItem>
+
+    <!-- 验证码 -->
+    <FormItem name="verifyCode" class="enter-x">
+      <Input
+        size="large"
+        v-model:value="formData.verifyCode"
+        placeholder="请输入验证码"
+        :maxlength="4"
+        style="height: 100%"
+      >
+        <template #suffix>
+          <div style="height: auto">
+            <img :src="formData.img" :style="imgStyle" @click="setCaptcha" />
+          </div>
+        </template>
+      </Input>
     </FormItem>
 
     <ARow class="enter-x">
@@ -82,8 +100,7 @@
   </Form>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
-
+  import { reactive, ref, unref, computed, onMounted } from 'vue';
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
     GithubFilled,
@@ -100,6 +117,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { getCaptcha, getRedisVeriCode } from '/@/api/sys/user';
   //import { onKeyStroke } from '@vueuse/core';
 
   const ACol = Col;
@@ -119,8 +137,11 @@
   const rememberMe = ref(false);
 
   const formData = reactive({
-    account: 'vben',
+    account: 'rootadmin',
     password: '123456',
+    verifyCode: '',
+    captchaId: '',
+    img: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -137,6 +158,8 @@
       const userInfo = await userStore.login({
         password: data.password,
         username: data.account,
+        captchaId: formData.captchaId,
+        verifyCode: formData.verifyCode,
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {
@@ -156,4 +179,23 @@
       loading.value = false;
     }
   }
+  const inputRef = ref(null);
+  const setCaptcha = async () => {
+    const { img, id } = await getCaptcha({ width: 20, height: 20 });
+    formData.img = img;
+    formData.captchaId = id;
+    const { number } = await getRedisVeriCode({ captchaId: formData.captchaId });
+    console.log('number :>>', number);
+    formData.verifyCode = number + '';
+  };
+  onMounted(async () => {
+    await setCaptcha();
+    // @ts-ignore
+    imgStyle.value.height = unref(inputRef).input.clientHeight - 3 + 'px';
+    console.log('imgStyle.value.height :>>', imgStyle.value.height);
+  });
+  const imgStyle = ref({
+    height: 'auto',
+    cursor: 'pointer',
+  });
 </script>

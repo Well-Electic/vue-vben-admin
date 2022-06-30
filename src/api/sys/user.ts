@@ -4,11 +4,46 @@ import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userMod
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
-  Login = '/login',
+  Login = '/admin/login',
   Logout = '/logout',
-  GetUserInfo = '/getUserInfo',
+  GetUserInfo = 'admin/account/info',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
+  GetCaptcha = '/admin/captcha/img',
+}
+
+/** 获取验证码参数 */
+type CaptchaParams = {
+  width?: number;
+  height?: number;
+};
+/** 获取验证码结果 */
+type CaptchaResult = {
+  img: string;
+  id: string;
+};
+
+/**
+ * @description: 获取缓存验证码
+ */
+type RedisCode = {
+  number: string;
+};
+export function getRedisVeriCode(data) {
+  return defHttp.post<RedisCode>({
+    url: 'admin/rediscode',
+    data,
+  });
+}
+
+/**
+ * @description: 获取验证码
+ */
+export function getCaptcha(params?: CaptchaParams) {
+  return defHttp.get<CaptchaResult>({
+    url: Api.GetCaptcha,
+    params,
+  });
 }
 
 /**
