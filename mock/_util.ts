@@ -11,11 +11,11 @@ export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}
 
 export function resultPageSuccess<T = any>(
   page: number,
-  pageSize: number,
+  limit: number,
   list: T[],
   { message = 'ok' } = {},
 ) {
-  const pageData = pagination(page, pageSize, list);
+  const pageData = pagination(page, limit, list);
 
   return {
     ...resultSuccess({
@@ -35,12 +35,12 @@ export function resultError(message = 'Request failed', { code = -1, result = nu
   };
 }
 
-export function pagination<T = any>(pageNo: number, pageSize: number, array: T[]): T[] {
-  const offset = (pageNo - 1) * Number(pageSize);
+export function pagination<T = any>(pageNo: number, limit: number, array: T[]): T[] {
+  const offset = (pageNo - 1) * Number(limit);
   const ret =
-    offset + Number(pageSize) >= array.length
+    offset + Number(limit) >= array.length
       ? array.slice(offset, array.length)
-      : array.slice(offset, offset + Number(pageSize));
+      : array.slice(offset, offset + Number(limit));
   return ret;
 }
 

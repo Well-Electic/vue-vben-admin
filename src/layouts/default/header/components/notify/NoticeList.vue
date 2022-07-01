@@ -73,7 +73,7 @@
         type: Array as PropType<ListItem[]>,
         default: () => [],
       },
-      pageSize: {
+      limit: {
         type: [Boolean, Number] as PropType<Boolean | Number>,
         default: 5,
       },
@@ -98,9 +98,9 @@
       const { prefixCls } = useDesign('header-notify-list');
       const current = ref(props.currentPage || 1);
       const getData = computed(() => {
-        const { pageSize, list } = props;
-        if (pageSize === false) return [];
-        let size = isNumber(pageSize) ? pageSize : 5;
+        const { limit, list } = props;
+        if (limit === false) return [];
+        let size = isNumber(limit) ? limit : 5;
         return list.slice(size * (unref(current) - 1), size * unref(current));
       });
       watch(
@@ -111,11 +111,11 @@
       );
       const isTitleClickable = computed(() => !!props.onTitleClick);
       const getPagination = computed(() => {
-        const { list, pageSize } = props;
-        if (pageSize > 0 && list && list.length > pageSize) {
+        const { list, limit } = props;
+        if (limit > 0 && list && list.length > limit) {
           return {
             total: list.length,
-            pageSize,
+            limit,
             //size: 'small',
             current: unref(current),
             onChange(page) {

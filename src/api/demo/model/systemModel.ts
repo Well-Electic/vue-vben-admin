@@ -69,6 +69,19 @@ export type DeptListGetResultModel = BasicFetchResult<DeptListItem>;
 
 export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
 
-export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
+export type RolePageListGetResultModel = {
+  list: any;
+  pagination: any;
+};
+
+export interface roleElement {
+  createdAt: string;
+  id: number;
+  remark: string;
+  name: string;
+  label: string;
+  updatedAt: string;
+  userId: string;
+}
 
 export type RoleListGetResultModel = RoleListItem[];

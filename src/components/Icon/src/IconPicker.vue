@@ -41,11 +41,11 @@
                 </li>
               </ul>
             </ScrollContainer>
-            <div class="flex py-2 items-center justify-center" v-if="getTotal >= pageSize">
+            <div class="flex py-2 items-center justify-center" v-if="getTotal >= limit">
               <a-pagination
                 showLessItems
                 size="small"
-                :pageSize="pageSize"
+                :limit="limit"
                 :total="getTotal"
                 @change="handlePageChange"
               />
@@ -106,7 +106,7 @@
   const props = defineProps({
     value: propTypes.string,
     width: propTypes.string.def('100%'),
-    pageSize: propTypes.number.def(140),
+    limit: propTypes.number.def(140),
     copy: propTypes.bool.def(false),
     mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
   });
@@ -127,10 +127,7 @@
   const { clipboardRef, isSuccessRef } = useCopyToClipboard(props.value);
   const { createMessage } = useMessage();
 
-  const { getPaginationList, getTotal, setCurrentPage } = usePagination(
-    currentList,
-    props.pageSize,
-  );
+  const { getPaginationList, getTotal, setCurrentPage } = usePagination(currentList, props.limit);
 
   watchEffect(() => {
     currentSelect.value = props.value;
