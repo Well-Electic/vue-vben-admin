@@ -3,7 +3,6 @@ import {
   DeptListItem,
   MenuParams,
   RoleParams,
-  RolePageParams,
   MenuListGetResultModel,
   DeptListGetResultModel,
   AccountListGetResultModel,
@@ -18,7 +17,7 @@ enum Api {
   DeptList = '/system/getDeptList',
   setRoleStatus = '/system/setRoleStatus',
   MenuList = '/system/getMenuList',
-  RolePageList = '/system/getRoleListByPage',
+  RolePageList = '/admin/sys/role/page', // 获取角色列表
   GetAllRoleList = '/system/getAllRoleList',
 }
 
@@ -31,8 +30,12 @@ export const getDeptList = (params?: DeptListItem) =>
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.MenuList, params });
 
-export const getRoleListByPage = (params?: RolePageParams) =>
-  defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params });
+export const getRoleListByPage = () =>
+  // @ts-ignore
+  defHttp.get<RolePageListGetResultModel>({
+    url: Api.RolePageList,
+    params: { page: 1, limit: 10 },
+  });
 
 export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
