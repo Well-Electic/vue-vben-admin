@@ -105,6 +105,8 @@ export function useColumns(
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
 ) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
+  console.log(propsRef);
+
   let cacheColumns = unref(propsRef).columns;
 
   const getColumnsRef = computed(() => {
@@ -153,12 +155,20 @@ export function useColumns(
       })
       .map((column) => {
         const { slots, customRender, format, edit, editRow, flag } = column;
-
+        // 这里是可能的解决方案
+        if (!column.customSlots) {
+          column.customSlots = slots;
+        }
         if (!slots || !slots?.title) {
-          // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
-          column.customTitle = column.title;
+          column.customTitle = column.title as VueNode;
           Reflect.deleteProperty(column, 'title');
         }
+        Reflect.deleteProperty(column, 'slots');
+        // if (!slots || !slots?.title) {
+        //   // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+        //   column.customTitle = column.title;
+        //   Reflect.deleteProperty(column, 'title');
+        // }
         const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
         if (!customRender && format && !edit && !isDefaultAction) {
           column.customRender = ({ text, record, index }) => {
@@ -213,12 +223,12 @@ export function useColumns(
     if (!isString(firstColumn) && !isArray(firstColumn)) {
       columnsRef.value = columns as BasicColumn[];
     } else {
-      const columnKeys = (columns as (string | string[])[]).map(m => m.toString());
+      const columnKeys = (columns as (string | string[])[]).map((m) => m.toString());
       const newColumns: BasicColumn[] = [];
       cacheColumns.forEach((item) => {
         newColumns.push({
           ...item,
-          defaultHidden: !columnKeys.includes(item.dataIndex?.toString() || (item.key as string))
+          defaultHidden: !columnKeys.includes(item.dataIndex?.toString() || (item.key as string)),
         });
       });
       // Sort according to another array

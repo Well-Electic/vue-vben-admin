@@ -25,16 +25,37 @@
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
-      <template #headerCell="{ column }">
+      <!-- <template #headerCell="{ column }">
         <HeaderCell :column="column" />
-      </template>
+      </template> -->
       <!-- 增加对antdv3.x兼容 -->
-      <template #bodyCell="data">
+      <!-- <template #bodyCell="data">
         <slot name="bodyCell" v-bind="data || {}"></slot>
-      </template>
+      </template> -->
       <!--      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">-->
       <!--        <HeaderCell :column="column" />-->
       <!--      </template>-->
+
+      <!-- 以下是可能的解决方法 -->
+      <template #headerCell="data">
+        <template v-for="column in columns" :key="column.dataIndex">
+          <template v-if="data.column.dataIndex === column.dataIndex">
+            <template v-if="column.customSlots?.title">
+              <slot :name="column.customSlots?.title" v-bind="data || {}"></slot>
+            </template>
+            <HeaderCell v-else :column="data.column" />
+          </template>
+        </template>
+      </template>
+      <template #bodyCell="data">
+        <template v-for="column in columns" :key="column.dataIndex">
+          <template v-if="data.column.dataIndex === column.dataIndex">
+            <template v-if="column.customSlots?.customerRender">
+              <slot :name="column.customSlots?.customRender" v-bind="data || {}"></slot>
+            </template>
+          </template>
+        </template>
+      </template>
     </Table>
   </div>
 </template>
