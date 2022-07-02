@@ -30,7 +30,7 @@ export const schemas: FormSchema[] = [
     },
     componentProps: {
       onChange: (e: any) => {
-        console.log(e);
+        console.info(e);
       },
     },
   },

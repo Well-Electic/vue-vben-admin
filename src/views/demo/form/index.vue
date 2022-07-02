@@ -157,12 +157,12 @@
       // componentProps:{},
       // can func
       componentProps: ({ schema, formModel }) => {
-        console.log('form:', schema);
-        console.log('formModel:', formModel);
+        console.info('form:', schema);
+        console.info('formModel:', formModel);
         return {
           placeholder: '自定义placeholder',
           onChange: (e: any) => {
-            console.log(e);
+            console.warn(e);
           },
         };
       },
@@ -183,7 +183,7 @@
       },
       componentProps: {
         onChange: (e: any) => {
-          console.log(e);
+          console.info(e);
         },
       },
       suffix: '天',
@@ -366,11 +366,11 @@
         // not request untill to select
         immediate: false,
         onChange: (e) => {
-          console.log('selected:', e);
+          console.info('selected:', e);
         },
         // atfer request callback
         onOptionsChange: (options) => {
-          console.log('get options', options.length, options);
+          console.info('get options', options.length, options);
         },
       },
       colProps: {
@@ -501,12 +501,10 @@
           options: provincesOptions,
           placeholder: '省份与城市联动',
           onChange: (e: any) => {
-            // console.log(e)
             let citiesOptions =
               e == 1
                 ? citiesOptionsData[provincesOptions[0].id]
                 : citiesOptionsData[provincesOptions[1].id];
-            // console.log(citiesOptions)
             if (e === undefined) {
               citiesOptions = [];
             }
@@ -657,7 +655,7 @@
           keyword.value = '';
         },
         handleSubmit: (values: any) => {
-          console.log('values', values);
+          console.info('values', values);
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         check,

@@ -25,9 +25,9 @@
     setup() {
       return {
         handleOk: () => {
-          console.log('=====================');
-          console.log('ok');
-          console.log('======================');
+          console.info('=====================');
+          console.info('ok');
+          console.info('======================');
         },
       };
     },

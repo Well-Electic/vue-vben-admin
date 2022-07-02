@@ -58,6 +58,6 @@
   async function handleLogin() {
     const data = await validForm();
     if (!data) return;
-    console.log(data);
+    console.info(data);
   }
 </script>

@@ -81,7 +81,7 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        console.info(record);
       }
 
       function handleSuccess() {

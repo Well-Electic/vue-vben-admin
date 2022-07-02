@@ -182,17 +182,16 @@
   const inputRef = ref(null);
   const setCaptcha = async () => {
     const { img, id } = await getCaptcha({ width: 20, height: 20 });
+
     formData.img = img;
     formData.captchaId = id;
     const { number } = await getRedisVeriCode({ captchaId: formData.captchaId });
-    console.log('number :>>', number);
     formData.verifyCode = number + '';
   };
   onMounted(async () => {
     await setCaptcha();
     // @ts-ignore
     imgStyle.value.height = unref(inputRef).input.clientHeight - 3 + 'px';
-    console.log('imgStyle.value.height :>>', imgStyle.value.height);
   });
   const imgStyle = ref({
     height: 'auto',

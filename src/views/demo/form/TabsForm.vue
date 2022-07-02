@@ -102,19 +102,19 @@
             deepMerge(values, getFieldsValue());
           }
 
-          console.log('submit values: ', values);
+          console.info('submit values: ', values);
           createMessage.success('提交成功！请打开控制台查看');
         } catch (e) {
           // 验证失败或出错，切换到对应标签页
           activeKey.value = lastKey;
-          console.log(e);
+          console.info(e);
         } finally {
           loading.value = false;
         }
       }
 
       async function handleSetValues() {
-        console.log('默认值为: ', mockDefaultValue);
+        console.info('默认值为: ', mockDefaultValue);
         for (const item of tabsFormSchema) {
           const { setFieldsValue } = item.Form[1];
           await setFieldsValue(mockDefaultValue);

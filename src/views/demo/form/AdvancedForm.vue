@@ -27,7 +27,7 @@
         componentProps: {
           placeholder: '自定义placeholder',
           onChange: (e: any) => {
-            console.log(e);
+            console.warn(e);
           },
         },
       },

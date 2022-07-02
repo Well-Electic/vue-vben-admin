@@ -72,7 +72,7 @@
       const treeLoading = ref(false);
 
       function handleCheck(checkedKeys, e) {
-        console.log('onChecked', checkedKeys, e);
+        console.info('onChecked', checkedKeys, e);
       }
 
       function loadTreeData() {
@@ -84,7 +84,7 @@
           treeLoading.value = false;
           // 展开全部
           nextTick(() => {
-            console.log(unref(asyncExpandTreeRef));
+            console.info(unref(asyncExpandTreeRef));
             unref(asyncExpandTreeRef)?.expandAll(true);
           });
         }, 2000);

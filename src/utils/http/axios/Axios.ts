@@ -211,8 +211,8 @@ export class VAxios {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
         .then((res: AxiosResponse<Result>) => {
-          if (res.data?.data?.list) {
-            res.data.data = {
+          if (res.data?.result?.list) {
+            res.data.result = {
               items: [
                 {
                   remark: 'remark',

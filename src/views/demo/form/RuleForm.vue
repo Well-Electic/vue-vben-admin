@@ -220,9 +220,9 @@
       async function validateForm() {
         try {
           const res = await validateFields();
-          console.log('passing', res);
+          console.info('passing', res);
         } catch (error) {
-          console.log('not passing', error);
+          console.info('not passing', error);
         }
       }
       async function resetValidate() {

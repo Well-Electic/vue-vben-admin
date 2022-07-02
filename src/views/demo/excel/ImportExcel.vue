@@ -33,7 +33,6 @@
 
       function loadDataSuccess(excelDataList: ExcelData[]) {
         tableListRef.value = [];
-        console.log(excelDataList);
         for (const excelData of excelDataList) {
           const {
             header,

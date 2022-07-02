@@ -59,7 +59,7 @@
       }
 
       function handleColumnChange(data: ColumnChangeParam[]) {
-        console.log('ColumnChanged', data);
+        console.info('ColumnChanged', data);
       }
 
       return {

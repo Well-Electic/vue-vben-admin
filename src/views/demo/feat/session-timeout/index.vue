@@ -44,7 +44,7 @@
         try {
           await tokenExpiredApi();
         } catch (err) {
-          console.log('接口访问错误：', (err as Error).message || '错误');
+          console.warn('接口访问错误：', (err as Error).message || '错误');
         }
       }
 

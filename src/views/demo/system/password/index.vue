@@ -33,7 +33,7 @@
           const { passwordOld, passwordNew } = values;
 
           // TODO custom api
-          console.log(passwordOld, passwordNew);
+          console.info(passwordOld, passwordNew);
           // const { router } = useRouter();
           // router.push(pageEnum.BASE_LOGIN);
         } catch (error) {}

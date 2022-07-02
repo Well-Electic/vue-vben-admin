@@ -53,7 +53,7 @@
       function handleStep1Next(step1Values: any) {
         current.value++;
         state.initSetp2 = true;
-        console.log(step1Values);
+        console.info(step1Values);
       }
 
       function handleStepPrev() {
@@ -63,7 +63,7 @@
       function handleStep2Next(step2Values: any) {
         current.value++;
         state.initSetp3 = true;
-        console.log(step2Values);
+        console.info(step2Values);
       }
 
       function handleRedo() {

@@ -88,7 +88,7 @@
       }
 
       function handleEditChange(data: Recordable) {
-        console.log(data);
+        console.info(data);
       }
 
       function handleAdd() {

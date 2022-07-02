@@ -47,11 +47,11 @@
       });
 
       function getFormValues() {
-        console.log(getForm().getFieldsValue());
+        console.info(getForm().getFieldsValue());
       }
 
       function onSelectChange(selectedRowKeys: (string | number)[]) {
-        console.log(selectedRowKeys);
+        console.info(selectedRowKeys);
         checkedKeys.value = selectedRowKeys;
       }
 
